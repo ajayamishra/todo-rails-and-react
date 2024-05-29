@@ -11,22 +11,25 @@
 #
 default: &default
   adapter: mysql2
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: <%= ENV['DB_USERNAME']||'root' %>
+  password: <%= ENV['DB_PASSWORD']||'' %>
+  host: <%= ENV['DB_HOSTNAME']||'127.0.0.1' %>
+  port: <%= ENV['DB_PORT']||'3306' %>
 
 development:
   <<: *default
-  database: todo_rails_and_react_development
+  database: <%= ENV['DB_NAME'] || 'todo_app_development' %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: todo_rails_and_react_test
+  database: todo_app_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -50,6 +53,4 @@ test:
 #
 production:
   <<: *default
-  database: todo_rails_and_react_production
-  username: todo_rails_and_react
-  password: <%= ENV["TODO_RAILS_AND_REACT_DATABASE_PASSWORD"] %>
+  database: <%= ENV['DB_NAME'] || 'todo_app' %>
