@@ -1,0 +1,46 @@
+components:
+  schemas:
+    Projects:
+      description: Projects
+      type: object
+      properties:
+        id:
+          type: string
+          example: '1'
+        name:
+          type: string
+          example: 'Project 1'
+        color:
+          type: string
+          example: 'red'
+        view_style:
+          type: string
+          example: 'list'
+        is_shared:
+          type: boolean
+          example: false
+        is_favorite:
+          type: boolean
+          example: false
+        is_archived:
+          type: boolean
+          example: false
+        order:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: 'Project 1 description'
+        user_name:
+          type: string
+          example: 'User 1'
+      required:
+        - name
+        - color
+        - view_style
+        - is_shared
+        - is_favorite
+        - is_archived
+        - order
+        - description
+        - user_name

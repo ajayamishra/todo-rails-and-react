@@ -1,0 +1,17 @@
+components:
+  schemas:
+    QueryMetadata:
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 1
+        offset:
+          type: integer
+          example: 0
+        total_count:
+          type: integer
+          example: 1
+        message:
+          type: string
+          example: Successfully fetched data

@@ -1,0 +1,12 @@
+openapi: 3.0.3
+info:
+  description: This is Public API schema of ToDo App
+  title: ToDo Public API
+  version: 1.0.0
+servers:
+  - description: development
+    url: http://localhost:5100
+paths:
+  # Projects
+  /api/p/projects:
+    $ref: './projects.yaml#/paths/~1projects'
