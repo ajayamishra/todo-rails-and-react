@@ -1,0 +1,61 @@
+components:
+  schemas:
+    ErrorBase:
+      type: object
+      properties:
+        system_message:
+          type: string
+        user_message:
+          type: string
+        error_class:
+          type: string
+        error_code:
+          type: string
+        metadata:
+          type: object
+      required:
+        - system_message
+        - user_message
+        - error_class
+        - error_code
+        - metadata
+    UserError:
+      allOf:
+        - $ref: '#/components/schemas/ErrorBase'
+        - type: object
+          properties:
+            invalid_fields:
+              description: error message fields
+              items:
+                $ref: '#/components/schemas/ErrorField'
+              type: array
+          required:
+            - invalid_fields
+    NotFoundError:
+      type: object
+    UnauthorizedError:
+      type: object
+    InternalServerError:
+      type: object
+    SystemError:
+      allOf:
+        - $ref: '#/components/schemas/ErrorBase'
+    ErrorField:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Field name
+        message:
+          type: string
+          description: Error message
+        user_message:
+          type: string
+          description: User friendly error message
+        meta:
+          type: object
+          description: Meta data
+      required:
+        - name
+        - message
+        - user_message

@@ -1,6 +1,184 @@
 openapi: 3.0.3
 info:
-  description: This is Private API schema of ToDo App
-  title: ToDo Private API
+  description: This is Public API schema of ToDo App
+  title: ToDo Public API
   version: 1.0.0
-paths: {}
+servers:
+- description: development
+  url: http://localhost:5100
+paths:
+  /api/p/projects:
+    get:
+      operationId: projects/index
+      parameters:
+      - description: Offset for pagination
+        in: query
+        name: offset
+        required: false
+        schema:
+          format: int32
+          type: integer
+      - description: Limit for pagination
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectsListResponse'
+          description: Successfully fetched Projects
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+          description: 401 Unauthorized Access
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+          description: 500 Internal Server Error
+      summary: Get list of Projects
+      tags:
+      - Projects
+    parameters:
+    - description: Offset for pagination
+      in: query
+      name: offset
+      required: false
+      schema:
+        format: int32
+        type: integer
+    - description: Limit for pagination
+      in: query
+      name: limit
+      required: false
+      schema:
+        format: int32
+        type: integer
+components:
+  schemas:
+    ProjectsListResponse:
+      example:
+        data:
+        - is_favorite: false
+          color: red
+          is_archived: false
+          user_name: User 1
+          is_shared: false
+          name: Project 1
+          view_style: list
+          description: Project 1 description
+          id: "1"
+          order: 1
+        - is_favorite: false
+          color: red
+          is_archived: false
+          user_name: User 1
+          is_shared: false
+          name: Project 1
+          view_style: list
+          description: Project 1 description
+          id: "1"
+          order: 1
+        meta:
+          offset: 0
+          total_count: 1
+          limit: 1
+          message: Successfully fetched data
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Projects'
+          type: array
+        meta:
+          $ref: '#/components/schemas/QueryMetadata'
+      required:
+      - data
+      - meta
+      type: object
+    UnauthorizedError:
+      type: object
+    InternalServerError:
+      type: object
+    Projects:
+      description: Projects
+      example:
+        is_favorite: false
+        color: red
+        is_archived: false
+        user_name: User 1
+        is_shared: false
+        name: Project 1
+        view_style: list
+        description: Project 1 description
+        id: "1"
+        order: 1
+      properties:
+        id:
+          example: "1"
+          type: string
+        name:
+          example: Project 1
+          type: string
+        color:
+          example: red
+          type: string
+        view_style:
+          example: list
+          type: string
+        is_shared:
+          example: false
+          type: boolean
+        is_favorite:
+          example: false
+          type: boolean
+        is_archived:
+          example: false
+          type: boolean
+        order:
+          example: 1
+          type: integer
+        description:
+          example: Project 1 description
+          type: string
+        user_name:
+          example: User 1
+          type: string
+      required:
+      - color
+      - description
+      - is_archived
+      - is_favorite
+      - is_shared
+      - name
+      - order
+      - user_name
+      - view_style
+      type: object
+    QueryMetadata:
+      example:
+        offset: 0
+        total_count: 1
+        limit: 1
+        message: Successfully fetched data
+      properties:
+        limit:
+          example: 1
+          type: integer
+        offset:
+          example: 0
+          type: integer
+        total_count:
+          example: 1
+          type: integer
+        message:
+          example: Successfully fetched data
+          type: string
+      type: object

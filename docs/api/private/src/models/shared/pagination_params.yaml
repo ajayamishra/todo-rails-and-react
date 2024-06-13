@@ -1,0 +1,18 @@
+components:
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Offset for pagination
+      required: false
+      schema:
+        type: integer
+        format: int32
+    limit:
+      name: limit
+      in: query
+      description: Limit for pagination
+      required: false
+      schema:
+        type: integer
+        format: int32

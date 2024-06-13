@@ -1,0 +1,49 @@
+info:
+  title: Projects
+  version: v1
+tags:
+  - description: Projects
+    name: Projects
+paths:
+  /projects:
+    parameters:
+      - $ref: './models/shared/pagination_params.yaml#/components/parameters/offset'
+      - $ref: './models/shared/pagination_params.yaml#/components/parameters/limit'
+    get:
+      operationId: projects/index
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectsListResponse'
+          description: Successfully fetched Projects
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: './models/shared/errors.yaml#/components/schemas/UnauthorizedError'
+          description: 401 Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: './models/shared/errors.yaml#/components/schemas/InternalServerError'
+          description: 500 Internal Server Error
+      summary: |-
+        Get list of Projects
+      tags:
+        - Projects
+components:
+  schemas:
+    ProjectsListResponse:
+      properties:
+        data:
+          items:
+            $ref: './models/projects.yaml#/components/schemas/Projects'
+        meta:
+          $ref: './models/shared/query_metadata.yaml#/components/schemas/QueryMetadata'
+      type: object
+      required:
+        - data
+        - meta
