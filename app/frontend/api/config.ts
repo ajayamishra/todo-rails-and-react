@@ -3,7 +3,7 @@ import { objectToSnake, objectToCamel } from 'ts-case-convert';
 import { removeUnderscoresWithNumbers } from '@/utils/removeUnderscoreWithNumbers';
 
 const AXIOS_INSTANCE = Axios.create({
-  baseURL: process.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
     ['Content-Type']: 'application/json',
   },
